@@ -242,7 +242,8 @@ class EvaluationSystem(Frame):
         xmax, xmin = max(x), min(x)
         ymax, ymin = max(y), min(y)
         ax.set_xlim(xmin, xmax)
-        ax.set_ylim(ymin, ymin + (xmax-xmin))
+        ax.set_ylim(21.7, 22.6)
+        # ax.set_ylim(ymin, ymin + (xmax-xmin))
 
         fig.savefig('test.png')
 

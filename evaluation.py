@@ -222,12 +222,12 @@ class EvaluationSystem(Frame):
                 ptchs.append(poly)
 
                 # ax.add_collection(PatchCollection(ptchs, facecolor=cccol[pij, :], linewidths=.5))
-                ax.add_collection(PatchCollection(ptchs, facecolor=(1, 1, 1, 1), linewidths=.5))
+                ax.add_collection(PatchCollection(ptchs, facecolor='white', linewidths=.5))
 
 
         cm = get_cmap('Dark2')
-        # print (len(prt))
-        # cccol = cm(1.*np.arange(10)/len(prt))
+        print (len(prt))
+        cccol = cm(1.*np.arange(10)/len(prt))
         for res in self.allResults:
             pos = (self.regionMap[res[0]]['longitude'], self.regionMap[res[0]]['latitude'])
             level = self.levelMap[res[1]]
@@ -243,6 +243,7 @@ class EvaluationSystem(Frame):
         ymax, ymin = max(y), min(y)
         ax.set_xlim(xmin, xmax)
         ax.set_ylim(21.7, 22.6)
+        print(xmin, xmax)
         # ax.set_ylim(ymin, ymin + (xmax-xmin))
 
         fig.savefig('test.png')

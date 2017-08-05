@@ -1,0 +1,198 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>珠海质量评估系统</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="assets/style.css">
+        <link rel="stylesheet" type="text/css" href="lib/materialize/css/materialize.min.css">
+    </head>
+
+    <body>
+        <div style='display: none'>
+            <img id='img' src='./assets/map.png' />
+        </div>
+        <div id="inputContainer">
+            <center><h2>气象宜居指数计算系统</h2></center>
+            <br>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select id="region-select">
+                                <option value="" disabled selected>选择区点</option>
+                                <option value="香洲">香洲</option>
+                                <option value="保税区">保税区</option>
+                                <option value="翠微">翠微</option>
+                                <option value="界涌">界涌</option>
+                                <option value="珠海港">珠海港</option>
+                                <option value="斗门镇">斗门镇</option>
+                                <option value="香洲港">香洲港</option>
+                                <option value="香灶镇">香灶镇</option>
+                                <option value="高栏西">高栏西</option>
+                                <option value="湾仔">湾仔</option>
+                                <option value="横琴桥">横琴桥</option>
+                                <option value="淇澳桥">淇澳桥</option>
+                                <option value="情侣北">情侣北</option>
+                                <option value="保税区新站">保税区新站</option>
+                                <option value="港珠澳大桥">港珠澳大桥</option>
+                                <option value="井岸">井岸</option>
+                                <option value="灯笼">灯笼</option>
+                                <option value="新乡村">新乡村</option>
+                                <option value="大赤坎">大赤坎</option>
+                                <option value="白藤大闸">白藤大闸</option>
+                                <option value="白藤湖">白藤湖</option>
+                                <option value="白蕉">白蕉</option>
+                                <option value="竹洲">竹洲</option>
+                                <option value="斗门大桥">斗门大桥</option>
+                            </select>
+                            <label>区点</label>
+                        </div>
+
+                        <div class="input-field col s6">
+                            <select id="month-select">
+                                <option value="" disabled selected>选择月份</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">2(闰年)</option>
+                            </select>
+                            <label>月份</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="temperature" id="temperature" type="text" class="validate">
+                            <label for="temperature" data-error="输入有误">月均气温(℃)</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="rain" id="rain" type="text" class="validate">
+                            <label for="rain" data-error="输入有误">月降水量(mm)</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="AQI" id="AQI" type="text" class="validate">
+                            <label for="AQI" data-error="输入有误">月均AQI</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="humidity" id="humidity" type="text" class="validate">
+                            <label for="humidity" data-error="输入有误">月均湿度(%)</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="wind" id="wind" type="text" class="validate">
+                            <label for="wind" data-error="输入有误">月均地面风速(m/s)</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <div class="col">
+                                <div class="col s6">
+                                    <input id="air" id="air" type="text" class="validate">
+                                    <label for="air" data-error="输入有误">月均大气通风量(m<sup>2</sup>/s)</label>
+                                </div>
+                                <div class="col s5">
+                                    <p>
+                                        <input type="checkbox" id="history"/>
+                                        <label for="history">使用历史值</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <center class="col s6"><a id="evaluate_btn" class="waves-effect waves-light btn blue">评估</a></center>
+                        <center class="col s6"><a id="reset_btn" class="waves-effect waves-light btn red">重置</a></center>
+                    </div>
+                </form>
+
+                    
+            </div>
+
+        </div>
+        
+        <div id="mapContainer">
+            <div id="resultBox">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>权重</th>
+                            <th>得分</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr id="temperature-tr">
+                            <td>气温</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="rain-tr">
+                            <td>降水量</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="pollutant-tr">
+                            <td>污染物浓度</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="clean-tr">
+                            <td>大气净化能力</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr id="comfort-tr">
+                            <td>人体舒适度</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr id="point">
+                            <td><strong>气象宜居指数得分</strong></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="map">
+                <center>
+                    <div class="switch" id="map_switcher">
+                        <label>
+                            打点
+                            <input type="checkbox">
+                            <span class="lever"></span>
+                            填色
+                        </label>
+                    </div>
+                </center>
+                
+                <canvas id="zhuhaiMap" width="800" height="600"></canvas>
+                
+            </div>
+        </div>
+        
+
+        <!-- <script type="text/javascript" src="lib/caman.full.js"></script> -->
+        
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/materialize/js/materialize.min.js"></script>
+        <script type="text/javascript" src="controllers/data.js"></script> 
+        <script type="text/javascript" src="controllers/evaluation.js"></script>
+    </body>
+</html>
